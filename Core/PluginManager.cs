@@ -20,14 +20,10 @@ public class PluginManager : IDisposable
         _mainMenu = mainMenu;
         _settings = new PluginSettings(_mainMenu);
 
-        // Создаём визуальный модуль (он нужен всем)
         _visual = new VisualModule(_mainMenu);
-
-        // Регистрируем модули
         _modules.Add(new LastHitModule(_mainMenu, _visual));
-        _modules.Add(_visual); // Добавляем сам визуальный модуль
+        _modules.Add(_visual);
 
-        // Подписываемся на рендеринг
         RendererManager.Draw += OnDraw;
     }
 
@@ -48,7 +44,6 @@ public class PluginManager : IDisposable
         if (!_settings.Enabled || GameManager.GameState != GameState.InGame)
             return;
 
-        // Визуальный модуль рисует сам
         if (_visual.Enabled)
             _visual.OnDraw();
     }
@@ -57,9 +52,7 @@ public class PluginManager : IDisposable
     {
         RendererManager.Draw -= OnDraw;
         foreach (var module in _modules)
-        {
             module.Dispose();
-        }
         _modules.Clear();
     }
 }

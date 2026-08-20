@@ -5,9 +5,6 @@ using Divine.Entity.Entities.Units.Creeps;
 
 public static class DamageHelper
 {
-    /// <summary>
-    /// Рассчитывает реальный урон по крипу с учётом брони и резистов
-    /// </summary>
     public static float CalculateRealDamage(Hero hero, Creep creep)
     {
         var damage = hero.TotalDamage;
@@ -16,9 +13,6 @@ public static class DamageHelper
         return damage * (1 - armorReduction);
     }
 
-    /// <summary>
-    /// Рассчитывает, сколько HP останется у крипа после нашего удара
-    /// </summary>
     public static float HealthAfterHit(Hero hero, Creep creep)
     {
         return creep.Health - CalculateRealDamage(hero, creep);
