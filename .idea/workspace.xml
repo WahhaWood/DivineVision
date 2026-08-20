@@ -10,12 +10,34 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c04e88bc-8f83-4fe9-a700-cf9b864490a9" name="Changes" comment="" />
+    <list default="true" id="c04e88bc-8f83-4fe9-a700-cf9b864490a9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/PluginSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/PluginSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Helpers/DamageHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Helpers/DamageHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Helpers/EntityHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Helpers/EntityHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/LastHitModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/LastHitModule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/VisualModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/VisualModule.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "WahhaWood"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/WahhaWood/DivineVision.git",
+    "accountId": "26d34850-307d-485e-8053-1ac6e8ba4370"
+  }
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Bootstrap.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Core/PluginManager.cs" root0="SKIP_HIGHLIGHTING" />
@@ -25,7 +47,13 @@
     <setting file="file://$PROJECT_DIR$/Modules/IModule.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Modules/LastHitModule.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Modules/VisualModule.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/wahha/OneDrive/Рабочий стол/Project Plugins/DivineVision/global.json" root0="FORCE_HIGHLIGHTING" />
   </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 4,
   "fromUser": false
@@ -38,6 +66,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
@@ -45,6 +74,7 @@
     "cidr.known.project.marker": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "master",
     "junie.onboarding.icon.badge.shown": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -67,6 +97,7 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />

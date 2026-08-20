@@ -1,18 +1,23 @@
-﻿using System;
+﻿namespace DivineVision.Modules;
+
+using System;
 using System.Drawing;
-using Divine;
 using Divine.Entity.Entities.Units.Creeps;
+using Divine.Helpers;
 using Divine.Menu;
 using Divine.Menu.Items;
 using Divine.Renderer;
-
-namespace DivineVision.Modules;
+using DivineVision.Helpers;
 
 public class VisualModule : IModule
 {
     private readonly MenuSwitcher _enabled;
-    private readonly MenuSwitcher _showLastHitIndicators;
-    private readonly LastHitModule _lastHitModule; // ссылка на модуль ластхита
+    private readonly MenuSwitcher _showLastHitMarker;
+    private readonly MenuSwitcher _showDenyMarker;
+    private readonly MenuSwitcher _showDamageText;
+
+    private Creep? _lastHitTarget;
+    private Creep? _denyTarget;
 
     public bool Enabled { get; set; }
 
@@ -20,50 +25,104 @@ public class VisualModule : IModule
     {
         var menu = mainMenu.AddMenu("Visuals");
         _enabled = menu.AddSwitcher("Enabled", true);
-        _showLastHitIndicators = menu.AddSwitcher("Show Last Hit Indicators", true);
+        _showLastHitMarker = menu.AddSwitcher("Show Last Hit Marker", true);
+        _showDenyMarker = menu.AddSwitcher("Show Deny Marker", true);
+        _showDamageText = menu.AddSwitcher("Show Damage Text", true);
 
-        // Получаем ссылку на модуль ластхита (он должен быть зарегистрирован раньше)
-        // Но в текущей архитектуре модули не знают друг о друге.
-        // Чтобы это работало, нужно передать экземпляр LastHitModule в конструктор VisualModule.
-        // Проще: сделаем статическое свойство или глобальный доступ.
-        // Но для простоты пока оставим как есть, а позже переделаем.
-        // Здесь мы просто объявим свойство, которое будем устанавливать из PluginManager.
-        // Пока оставим заглушку.
+        Enabled = true;
     }
 
-    // Временное решение: публичное свойство для установки ссылки
-    public LastHitModule? LastHitModuleRef { get; set; }
+    public void UpdateTargets(Creep? lastHit, Creep? deny)
+    {
+        _lastHitTarget = lastHit;
+        _denyTarget = deny;
+    }
 
     public void OnUpdate()
     {
-        // Никакой логики в update не нужно, только отрисовка
+        // Визуальный модуль не требует обновления логики, только отрисовка
     }
 
     public void OnDraw()
     {
-        if (!_enabled || !_showLastHitIndicators || LastHitModuleRef is null)
+        if (!_enabled || _lastHitTarget is null && _denyTarget is null)
             return;
 
-        var target = LastHitModuleRef.CurrentTarget;
-        if (target is null || !target.IsAlive)
-            return;
-
-        // Рисуем зелёный круг над целью
-        var pos = target.Position;
-        RendererManager.DrawCircle(pos, 50, Color.LimeGreen, 3);
-
-        // Рисуем текст "LAST HIT"
-        var screenPos = RendererManager.WorldToScreen(pos);
-        if (screenPos.HasValue)
+        // Рисуем маркер для ластхита
+        if (_showLastHitMarker && _lastHitTarget is not null)
         {
-            RendererManager.DrawText(
-                "🔪 LAST HIT",
-                screenPos.Value.X - 40,
-                screenPos.Value.Y - 60,
-                Color.LimeGreen,
-                FontFlags.Outline
-            );
+            DrawLastHitMarker(_lastHitTarget);
         }
+
+        // Рисуем маркер для деная
+        if (_showDenyMarker && _denyTarget is not null)
+        {
+            DrawDenyMarker(_denyTarget);
+        }
+
+        // Отображаем урон над крипами
+        if (_showDamageText)
+        {
+            if (_lastHitTarget is not null)
+                DrawDamageText(_lastHitTarget, Color.LimeGreen);
+            if (_denyTarget is not null)
+                DrawDamageText(_denyTarget, Color.Red);
+        }
+    }
+
+    private void DrawLastHitMarker(Creep creep)
+    {
+        var pos = creep.Position;
+        RendererManager.DrawCircle(pos, 60, Color.LimeGreen, 3);
+
+        // Вращающийся эффект (имитация через несколько кругов)
+        var time = Environment.TickCount / 1000f;
+        var offset = 30 * Math.Sin(time * 2);
+        RendererManager.DrawCircle(pos, 70 + (float)offset, Color.Lime, 1);
+    }
+
+    private void DrawDenyMarker(Creep creep)
+    {
+        var pos = creep.Position;
+        RendererManager.DrawCircle(pos, 60, Color.Red, 3);
+
+        // Перекрёстие сверху
+        var screenPos = RendererManager.WorldToScreen(pos);
+        if (screenPos is null) return;
+
+        var x = screenPos.Value.X;
+        var y = screenPos.Value.Y - 80;
+
+        RendererManager.DrawLine(
+            new Vector2(x - 15, y - 15),
+            new Vector2(x + 15, y + 15),
+            Color.Red, 2
+        );
+        RendererManager.DrawLine(
+            new Vector2(x + 15, y - 15),
+            new Vector2(x - 15, y + 15),
+            Color.Red, 2
+        );
+    }
+
+    private void DrawDamageText(Creep creep, Color color)
+    {
+        var screenPos = RendererManager.WorldToScreen(creep.Position);
+        if (screenPos is null) return;
+
+        var hero = EntityManager.LocalHero;
+        if (hero is null) return;
+
+        var damage = DamageHelper.CalculateRealDamage(hero, creep);
+        var text = $"⚔ {damage:F0}";
+
+        RendererManager.DrawText(
+            text,
+            screenPos.Value.X - 15,
+            screenPos.Value.Y - 100,
+            color,
+            FontFlags.Outline
+        );
     }
 
     public void Dispose() { }
