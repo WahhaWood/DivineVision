@@ -21,7 +21,7 @@ public class PluginManager : IDisposable
         _settings = new PluginSettings(_mainMenu);
 
         _visual = new VisualModule(_mainMenu);
-        _modules.Add(new LastHitModule(_mainMenu, _visual));
+        _modules.Add(new LastHitModule(_mainMenu, _visual, _settings));
         _modules.Add(_visual);
 
         RendererManager.Draw += OnDraw;

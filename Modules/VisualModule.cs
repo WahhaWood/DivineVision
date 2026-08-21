@@ -1,8 +1,9 @@
-﻿namespace DivineVision.Modules;
+namespace DivineVision.Modules;
 
 using System;
 using System.Drawing;
 using Divine.Entity;
+using Divine.Entity.Entities.Units.Buildings;
 using Divine.Entity.Entities.Units.Creeps;
 using Divine.Helpers;
 using Divine.Input;
@@ -22,6 +23,7 @@ public class VisualModule : IModule
     private readonly MenuSwitcher _alwaysShowRange;
 
     private Creep? _lastHitTarget;
+    private Tower? _towerTarget;
     private Creep? _denyTarget;
     private bool _lastHitActive;
 
@@ -48,10 +50,11 @@ public class VisualModule : IModule
         _lastHitActive = active;
     }
 
-    public void UpdateTargets(Creep? lastHit, Creep? deny)
+    public void UpdateTargets(Creep? lastHit, Creep? deny, Tower? tower = null)
     {
         _lastHitTarget = lastHit;
         _denyTarget = deny;
+        _towerTarget = tower;
     }
 
     public void OnUpdate() { }
@@ -63,6 +66,9 @@ public class VisualModule : IModule
         if (_showLastHitMarker && _lastHitTarget is not null)
             DrawLastHitMarker(_lastHitTarget);
 
+        if (_showLastHitMarker && _towerTarget is not null)
+            DrawTowerMarker(_towerTarget);
+
         if (_showDenyMarker && _denyTarget is not null)
             DrawDenyMarker(_denyTarget);
 
@@ -70,6 +76,8 @@ public class VisualModule : IModule
         {
             if (_lastHitTarget is not null)
                 DrawDamageText(_lastHitTarget, Color.LimeGreen);
+            if (_towerTarget is not null)
+                DrawDamageText(_towerTarget, Color.DodgerBlue);
             if (_denyTarget is not null)
                 DrawDamageText(_denyTarget, Color.Red);
         }
@@ -122,6 +130,18 @@ public class VisualModule : IModule
         RendererManager.DrawCircle(pos, 70 + (float)offset, Color.Lime, 1);
     }
 
+    private void DrawTowerMarker(Tower tower)
+    {
+        var pos = tower.Position;
+        RendererManager.DrawCircle(pos, 80, Color.DodgerBlue, 3);
+        // добавляем квадратную метку
+        var screenPos = RendererManager.WorldToScreen(pos);
+        if (screenPos is null) return;
+        var x = screenPos.Value.X;
+        var y = screenPos.Value.Y - 90;
+        RendererManager.DrawRectangle(x - 20, y - 20, 40, 40, Color.DodgerBlue, 2);
+    }
+
     private void DrawDenyMarker(Creep creep)
     {
         var pos = creep.Position;
@@ -145,15 +165,15 @@ public class VisualModule : IModule
         );
     }
 
-    private void DrawDamageText(Creep creep, Color color)
+    private void DrawDamageText(Entity entity, Color color)
     {
-        var screenPos = RendererManager.WorldToScreen(creep.Position);
+        var screenPos = RendererManager.WorldToScreen(entity.Position);
         if (screenPos is null) return;
 
         var hero = EntityManager.LocalHero;
         if (hero is null) return;
 
-        var damage = DamageHelper.CalculateRealDamage(hero, creep);
+        var damage = DamageHelper.CalculateRealDamageToEntity(hero, entity);
         var text = $"⚔ {damage:F0}";
 
         RendererManager.DrawText(
