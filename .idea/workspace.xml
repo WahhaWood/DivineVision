@@ -11,13 +11,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c04e88bc-8f83-4fe9-a700-cf9b864490a9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/DivineVision.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bootstrap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bootstrap.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/PluginManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Core/PluginManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Helpers/DamageHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Helpers/DamageHelper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Helpers/EntityHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Helpers/EntityHelper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/LastHitModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/LastHitModule.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/VisualModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/VisualModule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global.json" beforeDir="false" afterPath="$PROJECT_DIR$/global.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,6 +115,9 @@
   "fromUser": false
 }]]></component>
   <component name="ProjectId" id="3ICVj2EMZ6pSzIc7QOrW0TpaMVP" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
